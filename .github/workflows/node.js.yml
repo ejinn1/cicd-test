@@ -35,8 +35,16 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
-      - name: 🛠️ Build the project
-        run: npm run build --if-present
+      - name: 🧪 Run tests and generate coverage reports
+        run: |
+          npm test -- --coverage
+          # Ensure the coverage output is available
+          ls -alh coverage
 
-      - name: 🧪 Run tests
-        run: npm test
+      - name: 📤 Upload coverage report to Codecov
+        run: |
+          # Download the Codecov CLI
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          # Upload coverage using the token from secrets
+          ./codecov --verbose --fail-on-error -t ${{ secrets.CODECOV_TOKEN }} -n 'Node.js Build'-${{ github.run_id }} -F node -f coverage/lcov.info
