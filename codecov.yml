@@ -1,7 +1,7 @@
 comment:
   layout: 'reach,diff,flags,footer'
   behavior: default
-  require_changes: true
+  require_changes: false
 
 coverage:
   status:
