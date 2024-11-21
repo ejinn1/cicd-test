@@ -42,9 +42,11 @@ jobs:
           ls -alh coverage
 
       - name: 📤 Upload coverage report to Codecov
-        run: |
-          # Download the Codecov CLI
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          # Upload coverage using the token from secrets
-          ./codecov --verbose --fail-on-error -t ${{ secrets.CODECOV_TOKEN }} -n 'Node.js Build'-${{ github.run_id }} -F node -f coverage/lcov.info
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: node
+          name: Node.js Build-${{ github.run_id }}
+          fail_ci_if_error: true
+          verbose: true
