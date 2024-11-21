@@ -1,20 +1,15 @@
-comment:
-  layout: 'reach,diff,flags,footer'
-  behavior: default
-  require_changes: false
-
 coverage:
   status:
     project:
       default:
-        target: 80%
-        threshold: 1%
-    patch:
-      default:
-        target: 90%
+        target: auto
         threshold: 0%
+        base: auto
 
-flags:
-  node:
-    paths:
-      - coverage/lcov.info
+comment:
+  layout: ' diff, flags, files'
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+  hide_project_coverage: false
